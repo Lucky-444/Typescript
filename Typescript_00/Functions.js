@@ -59,3 +59,28 @@ function divadd(n1, n2) {
 var combineFunction;
 combineFunction = divadd;
 console.log(combineFunction(1, 2));
+//If We assign again combineFunction = another function(which take string as parameters ) then it shows wrong answer to us 
+//so it is not a good Practice 
+//! Good Practice
+function x(n1, n2) {
+    return n1 + n2;
+}
+var f;
+f = x;
+console.log(f(123, 234));
+//! function Type And CallBacks
+function f2(n1, n2, cb) {
+    var result = n1 + n2;
+    cb(result);
+}
+//x as a parameter pass to the function f2
+f2(19, 35, function (x) {
+    console.log(x);
+});
+function f3(a, b, cb) {
+    var res = a + b;
+    cb(res);
+}
+f3(1393, 3273, function (a) {
+    console.log("a", a);
+});

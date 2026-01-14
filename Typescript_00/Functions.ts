@@ -87,4 +87,45 @@ let combineFunction : Function;
 combineFunction = divadd ; 
 
 console.log(combineFunction(1, 2));
+//If We assign again combineFunction = another function(which take string as parameters ) then it shows wrong answer to us 
+//so it is not a good Practice 
+
+
+//! Good Practice
+function x(n1 : number , n2 : number){
+    return n1 + n2;
+}
+let f : (a : number, b : number) => number ; 
+f = x;
+
+console.log(f(123  , 234));
+
+//! function Type And CallBacks
+function f2(n1 : number , n2 : number , cb : (res : number) => void){
+    const result = n1 + n2;
+    cb(result); 
+}
+
+//x as a parameter pass to the function f2
+
+f2(19 , 35 , (x) => {
+    console.log(x);
+})
+
+//[Different Ways]
+
+type CB = (a : number) => void;
+
+function f3(a : number , b : number , cb : CB){
+    const res = a + b ; 
+
+    cb(res);
+}
+
+f3(1393 ,3273 , (a : number) => {
+    console.log("a" , a);
+})
+
+
+
 
