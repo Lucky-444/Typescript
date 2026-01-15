@@ -1,6 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //! Function with parameter types and return type
 function greet(name) {
-    return "Hello ".concat(name);
+    return `Hello ${name}`;
 }
 console.log(greet("Lucky")); // Hello Lucky
 //! void → function does not return anything
@@ -11,25 +13,24 @@ printMessage("Welcome to TypeScript");
 //! Function with Optional Parameters (?)
 function introduce(name, age) {
     if (age) {
-        return "Name: ".concat(name, ", Age: ").concat(age);
+        return `Name: ${name}, Age: ${age}`;
     }
-    return "Name: ".concat(name);
+    return `Name: ${name}`;
 }
 introduce("Lucky");
 introduce("Lucky", 21);
 //! Function With Default Parameters
-function power(base, exponent) {
-    if (exponent === void 0) { exponent = 2; }
-    return Math.pow(base, exponent);
+function power(base, exponent = 2) {
+    return base ** exponent;
 }
 power(5); // 25
 power(5, 3); // 125
 //! Arrow Function In TS
-var adddd = function (a, b) {
+const adddd = (a, b) => {
     return a + b;
 };
 console.log(adddd(10, 20)); // 30
-var multiply = function (a, b) {
+const multiply = (a, b) => {
     return a * b;
 };
 multiply(4, 5); // 20
@@ -40,12 +41,8 @@ function sum(a, b) {
 sum(10, 20); // number
 sum("Lucky", "Swain"); // string
 //! Rest Params
-function total() {
-    var numbers = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        numbers[_i] = arguments[_i];
-    }
-    return numbers.reduce(function (acc, curr) { return acc + curr; }, 0);
+function total(...numbers) {
+    return numbers.reduce((acc, curr) => acc + curr, 0);
 }
 total(10, 20, 30, 40); // 100
 //! never → function never completes normally
@@ -56,7 +53,7 @@ function throwError(message) {
 function divadd(n1, n2) {
     return n1 + n2;
 }
-var combineFunction;
+let combineFunction;
 combineFunction = divadd;
 console.log(combineFunction(1, 2));
 //If We assign again combineFunction = another function(which take string as parameters ) then it shows wrong answer to us 
@@ -65,22 +62,23 @@ console.log(combineFunction(1, 2));
 function x(n1, n2) {
     return n1 + n2;
 }
-var f;
+let f;
 f = x;
 console.log(f(123, 234));
 //! function Type And CallBacks
 function f2(n1, n2, cb) {
-    var result = n1 + n2;
+    const result = n1 + n2;
     cb(result);
 }
 //x as a parameter pass to the function f2
-f2(19, 35, function (x) {
+f2(19, 35, (x) => {
     console.log(x);
 });
 function f3(a, b, cb) {
-    var res = a + b;
+    const res = a + b;
     cb(res);
 }
-f3(1393, 3273, function (a) {
+f3(1393, 3273, (a) => {
     console.log("a", a);
 });
+//# sourceMappingURL=Functions.js.map

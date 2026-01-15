@@ -1,5 +1,7 @@
+"use strict";
 //Object , Array , Tuple , Enum 
-var Person = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const Person = {
     FirstName: "Lucky",
     Age: 23,
     Adress: {
@@ -9,7 +11,7 @@ var Person = {
 };
 console.log(Person);
 //! Tuple
-var P = {
+const P = {
     name: "Raghav",
     age: 62,
     skills: ["c ++", "Java", "pythion"],
@@ -24,7 +26,7 @@ var role;
     role[role["CLIENT"] = 1] = "CLIENT";
     role[role["USER"] = 2] = "USER";
 })(role || (role = {}));
-var PP = {
+const PP = {
     name: "sashank",
     age: 20,
     skills: ["c ++", "java", "Python", "Name"],
@@ -32,7 +34,7 @@ var PP = {
     role: role.AUTHOR, // we want this variable as dynamic 
 };
 if (PP.role == role.AUTHOR) {
-    console.log("AUthor Persom");
+    console.log("AUthor Person");
 }
 else if (PP.role === role.CLIENT) {
     console.log("Client User Only");
@@ -40,3 +42,4 @@ else if (PP.role === role.CLIENT) {
 else {
     console.log("User Only");
 }
+//# sourceMappingURL=Object_enum_tuple.js.map

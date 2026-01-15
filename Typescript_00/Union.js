@@ -1,8 +1,10 @@
+"use strict";
 // Union , Literal Types , Custome Types , Type Alias
+Object.defineProperty(exports, "__esModule", { value: true });
 // | -> this is called as [Pipe] in Typescript
 //! Union 
 function add(num1, num2) {
-    var result;
+    let result;
     if (typeof num1 == "string" && typeof num2 == "string") {
         result = num1.toString() + num2.toString();
         // If num1 is string and num2 is number → convert num1 to number
@@ -23,7 +25,7 @@ function add(num1, num2) {
 // console.log(add("Lucky", " swain")); // I want it will handle this also and show me the result as : Luckyswain
 //! Now Literal Types 
 function sum(n1, n2, conversionType) {
-    var result;
+    let result;
     if (typeof n1 == "number" && typeof n2 == "number") {
         result = n1 + n2;
     }
@@ -36,7 +38,7 @@ function sum(n1, n2, conversionType) {
     else if (typeof n1 == "number" && typeof n2 == "string") {
         result = n1 + +n2;
     }
-    console.log("".concat(conversionType, " ").concat(n1, " ").concat(n2));
+    console.log(`${conversionType} ${n1} ${n2}`);
     return result;
 }
 console.log(sum(19, 34, "as-number"));
@@ -53,17 +55,18 @@ function Sum(x1, x2) {
     }
 }
 Sum(10, 20);
-Sum("Sashank", " + Shradha");
+Sum("Sashank", " + S");
 // Function using Object Type Alias
 function printUser(user) {
-    console.log("Name: ".concat(user.name));
-    console.log("Age: ".concat(user.age));
-    console.log("Student: ".concat(user.isStudent));
+    console.log(`Name: ${user.name}`);
+    console.log(`Age: ${user.age}`);
+    console.log(`Student: ${user.isStudent}`);
 }
 // Correct object (matches the structure)
-var user1 = {
+const user1 = {
     name: "Lucky",
     age: 21,
     isStudent: true,
 };
 printUser(user1);
+//# sourceMappingURL=Union.js.map
