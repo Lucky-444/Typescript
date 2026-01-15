@@ -153,3 +153,71 @@ student1.showInfo(); // Rahul studies at XYZ Technical University
 // console.log(student1.universityName);
 // student1.getUniversityName();
 
+
+
+//! abstract Class
+// An abstract class is a class that cannot be instantiated directly.
+// It’s meant to be extended by child classes.
+
+/**It can have:
+
+Abstract methods (must be implemented in child)
+
+Regular methods
+
+Properties */
+
+// Abstract base class TO make Abstract Class Use Abstract KeyWord
+abstract class Employee {
+  constructor(
+    public name: string,
+    protected salary: number
+  ) {}
+
+  // Abstract method → must be implemented in child classes
+  abstract calculateBonus(): number;
+
+  // Regular method → can be used by child classes
+  showDetails() {
+    console.log(`${this.name} earns $${this.salary}`);
+  }
+}
+
+class Manager extends Employee {
+  constructor(name: string, salary: number, private teamSize: number) {
+    super(name, salary);
+  }
+
+  // Implement abstract method
+  calculateBonus(): number {
+    // Manager bonus based on salary and team size
+    return this.salary * 0.2 + this.teamSize * 100;
+  }
+}
+
+class Developer extends Employee {
+  constructor(name: string, salary: number, private projects: number) {
+    super(name, salary);
+  }
+
+  // Implement abstract method
+  calculateBonus(): number {
+    // Developer bonus based on salary and projects
+    return this.salary * 0.15 + this.projects * 150;
+  }
+}
+
+//This Is Important We can not instantiate an abstract class
+// ❌ Cannot instantiate abstract class
+// const e = new Employee("Sashanka", 50000);
+
+const m1 = new Manager("Rahul", 60000, 5);
+const d1 = new Developer("Lucky", 50000, 3);
+
+m1.showDetails(); // Rahul earns $60000
+d1.showDetails(); // Lucky earns $50000
+
+console.log("Manager Bonus:", m1.calculateBonus()); // Manager Bonus: 61000
+console.log("Developer Bonus:", d1.calculateBonus()); // Developer Bonus: 50450
+
+
