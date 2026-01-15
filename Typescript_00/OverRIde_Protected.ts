@@ -113,3 +113,43 @@ console.log(s1.marks); // 85
 // invalid value
 // s1.marks = 120;
 
+//! static
+//We use static to store data or logic that belongs to the class itself and should be shared across all instances. Inconsistent results occur only when static is misused for instance-specific data.
+
+//If every object needs its own copy → NOT static
+// If all objects must share one copy → static
+
+class University {
+  // static property → shared by all instances, accessed via class name
+  static universityName: string = "XYZ Technical University";
+
+  constructor(public student: string) {}
+
+  // static method → cannot access instance properties
+  static getUniversityName() {
+    return University.universityName;
+  }
+
+  // instance method → can access static members via class name
+  showInfo() {
+    console.log(`${this.student} studies at ${University.universityName}`);
+  }
+}
+
+// Accessing static property directly via class
+//To access the Static Methods of Properties we dont need to create The Objects
+console.log(University.universityName); // XYZ Technical University
+
+// Accessing static method directly via class
+console.log(University.getUniversityName()); // XYZ Technical University
+
+// Creating an object
+const student1 = new University("Rahul");
+
+// Instance method using static data
+student1.showInfo(); // Rahul studies at XYZ Technical University
+
+//  NOT allowed (will cause error)
+// console.log(student1.universityName);
+// student1.getUniversityName();
+
