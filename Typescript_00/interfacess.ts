@@ -83,7 +83,7 @@ interface IManager extends IEmployee {
 
 // Interface merging
 interface IEmployee {
-  department: string; // merged automatically
+  name: string; // merged automatically
 }
 
 // ❌ Type cannot merge
