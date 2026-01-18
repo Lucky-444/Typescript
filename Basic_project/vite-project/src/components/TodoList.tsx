@@ -1,40 +1,75 @@
-import { Trash2 } from "lucide-react";
+import { Trash2, CheckCircle2, Circle } from "lucide-react";
 import { Button } from "./ui/button";
-import { Card, CardHeader, CardTitle } from "./ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import type { Todo } from "../types/todo";
 
 type TodoListProps = {
-  items: { id: string; text: string }[];
+  items: Todo[];
   onRemoveTodo: (todoId: string) => void;
+  onToggleTodo: (todoId: string) => void;
 };
 
-const TodoList: React.FC<TodoListProps> = ({ items, onRemoveTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({
+  items,
+  onRemoveTodo,
+  onToggleTodo,
+}) => {
   return (
-    <div className="my-5 space-y-4">
-      {items.map((todo) => (
-        <Card
-          key={todo.id}
-          className="bg-gradient-to-r from-blue-100 via-blue-200 to-blue-100 border border-blue-300 
-                     hover:shadow-lg hover:scale-[1.02] transition-all duration-300 ease-in-out"
-        >
-          <CardHeader className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold text-blue-900">
-              {todo.text}
-            </CardTitle>
-
-            <Button
-              onClick={() => onRemoveTodo(todo.id)}
-              size="icon"
-              className="bg-red-600 text-white hover:bg-red-700 
-                         focus:ring-2 focus:ring-red-500 focus:ring-offset-2 
-                         rounded-full p-2 transition-transform duration-200 
-                         hover:scale-110 shadow-md cursor-pointer"
-              aria-label="Delete todo"
+    <div className="my-8 space-y-3">
+      <AnimatePresence mode="popLayout">
+        {items.length === 0 ? (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-slate-400 py-10 italic"
+          >
+            Your list is empty. Start by adding something!
+          </motion.p>
+        ) : (
+          items.map((todo) => (
+            <motion.div
+              key={todo.id}
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+              layout
+              className={`flex items-center justify-between p-4 rounded-2xl border transition-all 
+                ${
+                  todo.completed
+                    ? "bg-slate-50 border-slate-200 opacity-75"
+                    : "bg-white border-white shadow-sm hover:shadow-md"
+                }`}
             >
-              <Trash2 className="h-5 w-5" />
-            </Button>
-          </CardHeader>
-        </Card>
-      ))}
+              <div
+                className="flex items-center gap-3 flex-1 cursor-pointer"
+                onClick={() => onToggleTodo(todo.id)}
+              >
+                <button className="text-indigo-500 transition-transform active:scale-125">
+                  {todo.completed ? (
+                    <CheckCircle2 className="w-6 h-6" />
+                  ) : (
+                    <Circle className="w-6 h-6 text-slate-300" />
+                  )}
+                </button>
+                <span
+                  className={`text-slate-700 font-medium transition-all ${todo.completed ? "line-through text-slate-400" : ""}`}
+                >
+                  {todo.text}
+                </span>
+              </div>
+
+              <Button
+                onClick={() => onRemoveTodo(todo.id)}
+                variant="ghost"
+                size="icon"
+                className="text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+              >
+                <Trash2 className="h-5 w-5" />
+              </Button>
+            </motion.div>
+          ))
+        )}
+      </AnimatePresence>
     </div>
   );
 };

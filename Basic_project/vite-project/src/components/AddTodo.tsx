@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -9,14 +10,9 @@ type AddTodoProps = {
 const AddTodo: React.FC<AddTodoProps> = ({ onAddTodo }) => {
   const [text, setText] = useState<string>("");
 
-  const changeEventHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-  };
-
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
     if (text.trim().length === 0) return;
-
     onAddTodo(text);
     setText("");
   };
@@ -24,24 +20,26 @@ const AddTodo: React.FC<AddTodoProps> = ({ onAddTodo }) => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex items-center justify-center gap-4 md:gap-5"
+      className="relative flex items-center gap-2 group"
     >
-      <Input
-        type="text"
-        placeholder="Write a Todo..."
-        value={text}
-        onChange={changeEventHandler}
-        className="w-64 md:w-80 rounded-lg border border-gray-300 
-                   shadow-sm focus:ring-2 focus:ring-blue-400 
-                   focus:border-blue-400 transition-all duration-200"
-      />
+      <div className="relative flex-1">
+        <Input
+          type="text"
+          placeholder="What needs to be done?"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="h-12 px-5 bg-white/50 backdrop-blur-sm border-slate-200 rounded-2xl 
+                     focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+        />
+      </div>
       <Button
         type="submit"
-        className="bg-blue-600 text-white rounded-lg px-4 py-2 
-                   hover:bg-blue-700 hover:scale-105 active:scale-95 
-                   shadow-md transition-all duration-200"
+        disabled={!text.trim()}
+        className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl 
+                   shadow-lg shadow-indigo-200 transition-all active:scale-95 disabled:opacity-50"
       >
-        Add Todo
+        <Plus className="w-5 h-5 mr-2" />
+        Add
       </Button>
     </form>
   );
