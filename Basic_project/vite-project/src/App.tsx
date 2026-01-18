@@ -1,15 +1,29 @@
-import { Button } from "./components/ui/button"
+import { useState } from "react";
+import "./App.css";
+import AddTodo from "./components/AddTodo";
+import TodoList from "./components/TodoList";
+import type { Todo } from "./types/todo";
 
-const App = () => {
-  return ( // ✅ You need to return the JSX
+function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const addTodoHandler = (text: string) => {
+    const id = Math.random().toString();
+    setTodos([...todos, { id, text }]);
+  };
+
+  const removeTodoHandler = (todoId: string) => {
+    const newTodo = todos.filter((todo: Todo) => {
+      return todo.id !== todoId;
+    });
+    setTodos(newTodo);
+  };
+  return (
     <main className="max-w-6xl mx-auto my-10 px-5 md:px-0">
-      <Button>
-        Add Me
-      </Button>
-      {/* <AddTodo onAddTodo={addTodoHandler} /> */}
-      {/* <TodoList items={todos} onRemoveTodo={removeTodoHandler}/> */}
+      <AddTodo onAddTodo={addTodoHandler} />
+      <TodoList items={todos} onRemoveTodo={removeTodoHandler} />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
